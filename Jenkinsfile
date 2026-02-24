@@ -59,7 +59,19 @@ pipeline {
         }
 
         success {
-            echo 'Build and Cleanup successful!'
+            slackSend(
+                channel: '#all-cicd',
+                color: 'good',
+                message: "✅ Build Successful: ${env.JOB_NAME} [${env.BUILD_NUMBER}] (${env.BUILD_URL})"
+            )
+        }
+        
+        failure {
+            slackSend(
+                channel: '#all-cicd',
+                color: 'danger',
+                message: "🚨 Build FAILED: ${env.JOB_NAME} [${env.BUILD_NUMBER}] (${env.BUILD_URL})"
+            )
         }
     }
 }
