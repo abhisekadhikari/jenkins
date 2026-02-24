@@ -22,6 +22,7 @@ pipeline {
         stage("Building") {
             steps{
                 echo("Building...")
+                sh "echo 'Build Version: ${env.BUILD_ID}' > version.txt"
             }
         }
 
