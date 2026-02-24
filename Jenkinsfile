@@ -7,7 +7,7 @@ pipeline {
     }
 
     environment {
-        API_KEY = credentials('MY_SECRET_KEY')
+        API_TOKEN = credentials('MY_SECRET_KEY')
     }
 
     stages {
@@ -15,7 +15,7 @@ pipeline {
             steps {
                 echo "Starting build..."
                 // Jenkins is smart: it will mask the secret in the logs!
-                sh "echo 'The secret token is: \$API_KEY'"
+                sh "echo 'The secret token is: \$API_TOKEN'"
             }
         }
 
