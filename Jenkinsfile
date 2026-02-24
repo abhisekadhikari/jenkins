@@ -30,5 +30,12 @@ pipeline {
                 echo("Deployment Successful")
             }
         }
+
+        stage("Archive") {
+            steps{
+                // This tells Jenkins to "save" the file so you can download it later
+                archiveArtifacts artifacts: 'version.txt', fingerprint: true
+            }
+        }
     }
 }
