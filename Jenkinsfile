@@ -60,9 +60,11 @@ pipeline {
 
         success {
             slackSend(
+                baseUrl: 'https://hooks.slack.com/services/',
+                token: 'T0AH951CLPK/B0AGW7N257C/7l17JdCaQTinPmFSr7etgLgM', // The rest of your URL after /services/
                 channel: '#all-cicd',
                 color: 'good',
-                message: "✅ Build Successful: ${env.JOB_NAME} [${env.BUILD_NUMBER}] (${env.BUILD_URL})"
+                message: "Test from Jenkins!"
             )
         }
         
