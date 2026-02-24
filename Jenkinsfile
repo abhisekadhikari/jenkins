@@ -39,4 +39,15 @@ pipeline {
             }
         }
     }
+
+    post{
+        always {
+            echo("Cleaning the workspace...")
+            cleanWs()
+        }
+
+        success {
+            echo 'Build and Cleanup successful!'
+        }
+    }
 }
