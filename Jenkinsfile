@@ -6,7 +6,19 @@ pipeline {
         timestamps()
     }
 
-    stages{
+    environment {
+        API_KEY = credentials('MY_SECRET_KEY')
+    }
+
+    stages {
+        stage('Use Secret') {
+            steps {
+                echo "Starting build..."
+                // Jenkins is smart: it will mask the secret in the logs!
+                sh "echo 'The secret token is: \$API_KEY'"
+            }
+        }
+
         stage('Hello') {
             steps{
                 echo 'Hello from GitHub to the jenkins!'
