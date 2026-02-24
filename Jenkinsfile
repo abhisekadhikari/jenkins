@@ -52,28 +52,26 @@ pipeline {
         }
     }
 
-    post{
-        always {
-            echo("Cleaning the workspace...")
-            cleanWs()
-        }
-
+    post {
         success {
             slackSend(
-                baseUrl: 'https://hooks.slack.com/services/',
-                token: 'T0AH951CLPK/B0AGW7N257C/7l17JdCaQTinPmFSr7etgLgM', // The rest of your URL after /services/
+                tokenCredentialId: 'SLACK_WEBHOOK_URL',
                 channel: '#all-cicd',
                 color: 'good',
-                message: "Test from Jenkins!"
+                message: "✅ *Build Success!* \n*Project:* ${env.JOB_NAME} \n*Build:* #${env.BUILD_NUMBER} \n*Link:* ${env.BUILD_URL}"
             )
         }
-        
         failure {
             slackSend(
+                tokenCredentialId: 'SLACK_WEBHOOK_URL',
                 channel: '#all-cicd',
                 color: 'danger',
-                message: "🚨 Build FAILED: ${env.JOB_NAME} [${env.BUILD_NUMBER}] (${env.BUILD_URL})"
+                message: "🚨 *Build Failed!* \n*Project:* ${env.JOB_NAME} \n*Build:* #${env.BUILD_NUMBER} \n*Check Logs:* ${env.BUILD_URL}"
             )
+        }
+        always {
+            echo "Cleaning the workspace..."
+            cleanWs()
         }
     }
 }
